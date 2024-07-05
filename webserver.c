@@ -7,7 +7,7 @@
 #include <netinet/in.h>
 
 #define APP_MAX_BUFFER 1024
-#define PORT 1999
+#define PORT 9991
 
 int main(){
     // Server and Client File Descriptors
@@ -62,13 +62,12 @@ int main(){
                               "Content-Type: text/plain\r\n"
                               "Content-Length: 12\r\n"
                               "\r\n"
-                              "Hello World!";
+                              "Hello World!\r\n";
 
         write(client_fd, http_response, strlen(http_response));
 
         close(client_fd);
     }
-
 
     return 0;
 }
