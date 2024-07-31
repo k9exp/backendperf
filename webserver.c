@@ -7,7 +7,7 @@
 #include <unistd.h>
 
 #define APP_MAX_BUFFER 1024
-#define PORT 8080
+#define PORT 4501
 
 int main() {
   // Server and Client File Descriptors
@@ -59,16 +59,18 @@ int main() {
 
     printf("%s\n", buffer);
 
-    // simulating slow processing request
-    sleep(6);
-
     char *http_response = "HTTP/1.1 200 OK\r\n"
                           "Content-Type: text/html\r\n"
-                          "Content-Length: 16\r\n"
+                          "Content-Length: 1000\r\n" // more bytes then data
                           "\r\n"
-                          "Hello World!\r\n";
+                          "A\r\n";
 
     write(client_fd, http_response, strlen(http_response));
+
+    for(int i = 0; i < 100; i++){
+        sleep(1); // not i
+        write(client_fd, "A", 2);
+    }
 
     close(client_fd);
   }
