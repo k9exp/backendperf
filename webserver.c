@@ -39,7 +39,7 @@ int main() {
 
   // Creates the queues
   // Listen for clients, with 10 backlog (10 connection in accept queue)
-  if (listen(server_fd, 1000) < 0) {
+  if (listen(server_fd, 10) < 0) {
     perror("Listen failed");
     exit(EXIT_FAILURE);
   }
@@ -59,8 +59,11 @@ int main() {
 
     printf("%s\n", buffer);
 
+    // simulating slow processing request
+    sleep(6);
+
     char *http_response = "HTTP/1.1 200 OK\r\n"
-                          "Content-Type: text/plain\r\n"
+                          "Content-Type: text/html\r\n"
                           "Content-Length: 16\r\n"
                           "\r\n"
                           "Hello World!\r\n";
