@@ -66,7 +66,6 @@ int main() {
                           "Hello\r\n";
 
 
-    sleep(40);
     write(client_fd, http_response, strlen(http_response));
 
     close(client_fd);
